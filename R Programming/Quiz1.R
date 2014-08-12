@@ -18,7 +18,10 @@ four <- function() {
   print(x + y)
 }
 
-data <- read.csv("hw1_data.csv")
+temp <- tempfile()
+download.file("http://d396qusza40orc.cloudfront.net/rprog%2Fdata%2Fquiz1_data.zip",temp)
+data <- read.csv(unz(temp, "hw1_data.csv"))
+unlink(temp)
 
 colMeans(data, na.rm=TRUE)
 
