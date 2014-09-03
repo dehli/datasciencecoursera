@@ -3,12 +3,20 @@ library(XML)
 library(data.table)
 
 questionOne <- function(){
-  file <- read.csv("data/getdata-data-ss06hid.csv")
+  #Codebook - https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FPUMSDataDict06.pdf
+  url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv"
+  download.file(url, destfile="./data.csv", method="curl")
+  unzip("./data.zip")
+    
+  file <- read.csv("./data.csv")
   subset(file, VAL == 24)
 }
 
 questionTwoPart <- function(){
-  file <- read.xlsx("data/getdata-data-DATA.gov_NGAP.xlsx", sheetIndex=1, header=FALSE)
+  url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FDATA.gov_NGAP.xlsx"
+  download.file(url, destfile="./gov.xlsx", method="curl")
+    
+  file <- read.xlsx("./gov.xlsx", sheetIndex=1, header=FALSE)
   sub <- data.frame(file[19:23, 7:15])
   colnames(sub) <- c("Zip", "C", "P", "P2", "C2", "Ext", "1", "2", "3")
   sub
